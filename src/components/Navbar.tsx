@@ -1,5 +1,5 @@
 import { useTheme } from "../context/ThemeContext";
-import { DARK_THEME, LIGHT_THEME } from "../constants/theme";
+import { LIGHT_THEME } from "../constants/theme";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
