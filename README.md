@@ -1,32 +1,100 @@
-# React + TypeScript + Vite
+# React Guided Learning Activity: Theme Switcher & useReducer
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Title:** Implementing a Theme Switcher with useContext & State Management with useReducer
 
-Currently, two official plugins are available:
+**Objective:** Learn how to use the React Context API (`useContext`) for global state management (theme switching) and `useReducer` for managing complex state (task manager).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Tools
+- GitHub Classroom
+- GitHub Codespaces (or a local development environment with Node.js and VS Code)
+- Vite
+- React
+- TypeScript
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## Color Palette
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+| Theme | Background | Text | Button |
+|-------|------------|------|--------|
+| Light | `#FFFFFF` | `#000000` | `#1E90FF` |
+| Dark | `#242629` | `#FFFFFF` | `#85D1B0` |
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+---
+
+## Project Setup
+
+```bash
+npm create vite@latest react-state-management -- --template react-ts
+cd react-state-management
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Navbar.tsx
+│   ├── Navbar.module.css
+│   ├── TaskManager.tsx
+│   └── TaskManager.module.css
+├── constants/
+│   └── theme.ts
+├── context/
+│   └── ThemeContext.tsx
+├── reducers/
+│   └── taskReducer.ts
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+## Section 1: Theme Switcher with useContext
+
+### Theme Constants (`src/constants/theme.ts`)
+Defines `LIGHT_THEME` and `DARK_THEME` string constants used across the app.
+
+### Theme Context (`src/context/ThemeContext.tsx`)
+- Creates a typed context with `theme` and `toggleTheme`
+- Exports `ThemeProvider` to wrap the app
+- Exports `useTheme` custom hook with a guard for usage outside the provider
+
+### Navbar (`src/components/Navbar.tsx`)
+- Consumes `useTheme` via the custom hook
+- Displays a toggle button that switches between light and dark mode
+- Button text reflects the current theme using the constants
+
+---
+
+## Section 2: State Management with useReducer
+
+### Task Reducer (`src/reducers/taskReducer.ts`)
+- Typed `Task`, `TaskState`, and `TaskAction` types
+- Handles `add` (appends a new task) and `remove` (filters by id) actions
+
+### Task Manager (`src/components/TaskManager.tsx`)
+- Uses `useReducer` with the task reducer
+- Uses `useTheme` to apply light/dark styles
+- Add button is disabled when the input is empty
+
+---
+
+## Running the App
+
+```bash
+npm install
+npm run dev
+```
+
+## Building for Production
+
+```bash
+npm run build
+```
